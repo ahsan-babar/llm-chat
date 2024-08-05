@@ -28,7 +28,7 @@ Here is the list of environment variables used to configure production of applic
  | `PORT`                             | Number      | 3000                                             | Port for NestJS Application  |
  | `MONGODB_URI`           | String  | mongodb://mongo:27017/llm-chat                                    | MongoDB Connection string|
  | `LLM_SERVER_URL`           | String  |              http://llm-chat-server:3000                  | Python FastAPI Server URL|
- | `MISTRAL_MODEL_ID`           | String  | {{Hugging Face Model Idschat}}                                    | [Hugging Face](https://huggingface.co/) Model Id|
+ | `MISTRAL_MODEL_ID`           | String  | {{Hugging Face Model Ids}}                                    | [Hugging Face](https://huggingface.co/) Model Id|
  | `LLAMA_MODEL_ID`           | String  | {{Hugging Face Model Ids}}                                    | [Hugging Face](https://huggingface.co/) Model Id|
  | `HF_TOKEN`           | String  | {{Hugging Face Auth Token}}                                    | [Hugging Face](https://huggingface.co/) Auth Token|
 
