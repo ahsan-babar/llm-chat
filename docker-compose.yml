@@ -1,0 +1,58 @@
+services:
+  llm-chat-api:
+    image: node:20
+    container_name: llm-chat-nest
+    env_file: .env
+    environment:
+      - MONGODB_URI=$MONGODB_URI
+      - NODE_ENV=$NODE_ENV
+      - API_URL=$API_URL
+      - PORT=$PORT
+      - LLM_SERVER_URL=$LLM_SERVER_URL
+    networks:
+        - llm-chat
+    ports:
+        - 3001:3001
+    build: . 
+    depends_on:
+      - mongo
+      - llm-chat-server
+    volumes:
+      - ./nest:/usr/src/nest/app
+      - /usr/src/nest/app/node_modules
+    working_dir: /usr/src/nest/app
+    restart: unless-stopped
+    entrypoint: [ "/bin/sh", "-c", "npm install && npm run start:dev" ]
+
+  llm-chat-server:
+    image: python:3.9
+    container_name: llm-chat-fastapi
+    env_file: .env
+    environment:
+      - HF_TOKEN=$HF_TOKEN
+      - MISTRAL_MODEL_ID=$MISTRAL_MODEL_ID
+      - LLAMA_MODEL_ID=$LLAMA_MODEL_ID
+    networks:
+        - llm-chat
+    ports:
+        - 3000:3000
+    build: .
+    volumes:
+      - ./python:/usr/src/fastapi
+      - /usr/src/fastapi/cache
+    working_dir: /usr/src/fastapi
+    restart: unless-stopped
+    entrypoint: [ "/bin/sh", "-c", "pip install --no-cache-dir --upgrade -r /usr/src/fastapi/requirements.txt && uvicorn main:app --reload --port 3000 --host 0.0.0.0" ]
+
+  mongo:
+    container_name: llm-chat-mongo
+    image: mongo:6-jammy
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    networks:
+      - llm-chat
+
+networks:
+  llm-chat:
+    driver: bridge
