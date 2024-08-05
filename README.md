@@ -19,6 +19,21 @@ This guide will help you set up your environment variables and run the applicati
 **Note:** The `.env` file is typically included in the `.gitignore` file to prevent sharing sensitive information. Make sure not to commit your `.env` file to the repository.
 
 
+### Environment Variables
+Here is the list of environment variables used to configure production of application.
+
+ | Variables                         | Valid Value | Default Value                                 | Description                                                                   |
+ | ----------------------------------| ------------| ----------------------------------------------| ------------------------------------------------------------------------------|
+ | `NODE_ENV`                        | String      | development                                   | The environment varaible                                                  |
+ | `PORT`                             | Number      | 3000                                             | Port for NestJS Application  |
+ | `MONGODB_URI`           | String  | mongodb://mongo:27017/llm-chat                                    | MongoDB Connection string|
+ | `LLM_SERVER_URL`           | String  |              http://llm-chat-server:3000                  | Python FastAPI Server URL|
+ | `MISTRAL_MODEL_ID`           | String  | {{Hugging Face Model Idschat}}                                    | [Hugging Face](https://huggingface.co/) Model Id|
+ | `LLAMA_MODEL_ID`           | String  | {{Hugging Face Model Ids}}                                    | [Hugging Face](https://huggingface.co/) Model Id|
+ | `HF_TOKEN`           | String  | {{Hugging Face Auth Token}}                                    | [Hugging Face](https://huggingface.co/) Auth Token|
+
+
+
 ## Running the Application with Docker Compose
 
 Ensure Docker and Docker Compose are installed on your machine. If not, you can download them from the [Docker website](https://www.docker.com/products/docker-desktop).
