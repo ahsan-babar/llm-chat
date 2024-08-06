@@ -16,7 +16,7 @@ class LLM:
     def get_model_name(llm):
         if llm == 'mistral':
             return os.getenv('MISTRAL_MODEL_ID', 'mistralai/Mistral-7B-Instruct-v0.2')
-        elif llm == 'llama':
+        elif llm == 'llama2':
             return os.getenv('LLAMA_MODEL_ID', 'meta-llama/Llama-2-7b-chat-hf')
         else:
             print('Invalid LLM model. Using placeholder model, openai-community/gpt2')
