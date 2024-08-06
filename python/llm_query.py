@@ -26,22 +26,32 @@ class LLM:
     def get_tokenizer(cls, model_name):
         if model_name not in cls.TOKENIZERS:
             if directory_exists_and_has_files(f"./cache/tokenizer/{model_name}"):
+                print(f"{model_name} tokenizer loading from cache directory . . .")
                 cls.TOKENIZERS[model_name] = AutoTokenizer.from_pretrained(f"./cache/tokenizer/{model_name}")
+                print(f"{model_name} tokenizer loaded successfully from cache directory")
             else:
+                print(f"{model_name} tokenizer not found in the directory. Downloading from Hugging Face . . .")
                 tokenizer = AutoTokenizer.from_pretrained(model_name)
                 tokenizer.save_pretrained(f"./cache/tokenizer/{model_name}")
                 cls.TOKENIZERS[model_name] = tokenizer
+                print(f"{model_name} tokenizer loaded successfully from hugging face")
+
         return cls.TOKENIZERS[model_name]
 
     @classmethod
     def get_model(cls, model_name):
         if model_name not in cls.MODELS:
             if directory_exists_and_has_files(f"./cache/model/{model_name}"):
+                print(f"{model_name} model loading from cache directory . . .")
                 cls.MODELS[model_name] = AutoModelForCausalLM.from_pretrained(f"./cache/model/{model_name}")
+                print(f"{model_name} model loaded successfully from cache directory")
             else:
+                print(f"{model_name} model not found in the directory. Downloading from Hugging Face . . .")
                 model = AutoModelForCausalLM.from_pretrained(model_name)
                 model.save_pretrained(f"./cache/model/{model_name}")
                 cls.MODELS[model_name] = model
+                print(f"{model_name} model loaded successfully from hugging face")
+
         return cls.MODELS[model_name]
 
     def ask(self, question, context=''):
